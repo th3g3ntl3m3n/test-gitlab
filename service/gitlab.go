@@ -1,7 +1,16 @@
 package service
 
-import "test-egroup/entity"
+import (
+	"test-egroup/entity"
+	"test-egroup/repository"
+)
 
 func GitlabSvc() entity.SvcResp {
-	return entity.SvcResp{Names: "", TotalFork: 0}
+	var response = repository.GitlabRepo()
+	var svcResp entity.SvcResp
+	for _, v := range response.Nodes {
+		svcResp.Names = svcResp.Names + v.Name + ", "
+		svcResp.TotalFork += v.ForksCount
+	}
+	return svcResp
 }
