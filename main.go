@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	service.GitlabSvc(5)
+	service.GitlabSvc(5).Print()
 }
