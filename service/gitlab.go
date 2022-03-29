@@ -1,5 +1,7 @@
 package service
 
-func GitlabSvc() string {
-	return "Gitlab Svc"
+import "test-egroup/entity"
+
+func GitlabSvc() entity.SvcResp {
+	return entity.SvcResp{Names: "", TotalFork: 0}
 }

@@ -1,9 +1,15 @@
 package main
 
-import "testing"
+import (
+	"test-egroup/entity"
+	"test-egroup/service"
+	"testing"
+)
 
 func TestGitlabSvc(t *testing.T) {
-	if GitlabSvc() != "Gitlab Svc" {
+	got := service.GitlabSvc()
+	want := entity.SvcResp{Names: "", TotalFork: 0}
+	if got.Names != want.Names && got.TotalFork != want.TotalFork {
 		t.Fatal("Test Failed : Gitlab Svc")
 	}
 }
