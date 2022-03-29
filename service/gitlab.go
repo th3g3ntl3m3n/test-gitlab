@@ -1,13 +1,19 @@
 package service
 
 import (
+	"log"
 	"strings"
 	"test-egroup/entity"
 	"test-egroup/repository"
+	"test-egroup/utils"
 )
 
-func GitlabSvc() entity.SvcResp {
-	var response = repository.GitlabRepo()
+func GitlabSvc(param int) entity.SvcResp {
+	if param <= 0 {
+		log.Println("Parameter need to be greater than 0")
+		return entity.SvcResp{}
+	}
+	var response = repository.GitlabRepo(param)
 
 	var names []string
 	var totalCount int64
@@ -15,5 +21,5 @@ func GitlabSvc() entity.SvcResp {
 		names = append(names, v.Name)
 		totalCount += v.ForksCount
 	}
-	return entity.SvcResp{Names: strings.Join(names, ","), TotalFork: totalCount}
+	return entity.SvcResp{Names: strings.Join(names, utils.DELIM), TotalFork: totalCount}
 }

@@ -1,11 +1,23 @@
 package repository
 
-import "test-egroup/entity"
+import (
+	"log"
+	"os"
+	"test-egroup/entity"
+	"test-egroup/external"
+	"test-egroup/utils"
+)
 
-func GitlabRepo() entity.Projects {
-	return entity.Projects{
-		Nodes: []entity.Project{
-			{Name: "test", Description: "test", ForksCount: 1},
-		},
+func GitlabRepo(param int) *entity.Projects {
+	url := os.Getenv(utils.API_URL)
+	if url == "" {
+		url = "https://gitlab.com/api/graphql"
 	}
+	resp, err := external.InitGitlabClient(url).LastProjectsGqlAPI(param)
+	if err != nil {
+		log.Println("Something went wrong : ", err)
+		return nil
+	}
+
+	return &resp.Projects
 }

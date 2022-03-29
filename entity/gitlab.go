@@ -1,5 +1,9 @@
 package entity
 
+type GitlabGqlResp struct {
+	Projects Projects
+}
+
 type Projects struct {
 	Nodes []Project
 }
